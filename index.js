@@ -10,7 +10,6 @@ app.listen(port, () => {
 });
 
 //read
-
 app.get("/vendors", async (req, res) => {
   try {
     res.status(200).json({ message: "all vendors are returned" });
@@ -63,3 +62,5 @@ app.put("/vendors/:id", async (req, res) => {
     res.json({ error: error.message });
   }
 });
+
+//CRUD operation using postgreSQL
