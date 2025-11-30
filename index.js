@@ -68,8 +68,13 @@ app.delete("/vendors/:id", async (req, res) => {
   try {
     // const { name, email, cont, address, description } = req.body;
     const { id } = req.params;
+    const deletedVendor = await pool.query(
+      "DELETE FROM  vendor_Info WHERE id=$1",
+      [id]
+    );
     res.status(200).json({
       message: `vendors id: ${id} are deleted`,
+      data: deletedVendor.rows,
     });
   } catch (error) {
     res.json({ error: error.message });
