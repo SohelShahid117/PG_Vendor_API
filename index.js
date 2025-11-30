@@ -85,8 +85,14 @@ app.delete("/vendors/:id", async (req, res) => {
 app.put("/vendors/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    const { name, description } = req.body;
+    const updateBook = await pool.query(
+      "UPDATE vendor_info SET name=$1 description=$2 WHERE id = $3 RETURNING *",
+      [name, description, id]
+    );
     res.status(200).json({
       message: `vendor id:${id} are updated`,
+      data: updateBook.rows,
     });
   } catch (error) {
     res.json({ error: error.message });
